@@ -66,8 +66,7 @@ $user = DB::table('users')->select('id','first_name','last_name','user_role')->w
 
                                                    <div class="form-group  ">
                         <button type="submit" class="btn  btn-primary "><i class="fa fa-search"> </i> Search</button>
-                  <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#addattendance">
-New                  </button>
+                  <button type="button" class="btn btn-info btn- float-right mt-1" data-toggle="modal" data-target="#addattendance">New                  </button>
                     </div>
                                     </div>
  </div>
