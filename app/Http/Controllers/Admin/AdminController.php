@@ -25,7 +25,8 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('Admin.dashboard');
+        $emp = User::count();
+        return view('Admin.dashboard', get_defined_vars());
     }
     public function department()
     {
@@ -247,18 +248,17 @@ class AdminController extends Controller
 
         $type = $request->type;
         $name_ = $request->user;
-        dd($request->id);
         $eq = Equipment::where('id', $request->id)->first();
         $eq->type = $type;
         $eq->employee = $name_;
         $eq->save();
-        return redirect('admin/equipmentManagment')->with('success', 'Equipment Information Updated');
+        return redirect('admin/equipmentManagment')->with('message', 'Equipment Information Updated');
     }
     public function DeleteEquipment($id)
     {
         $eq = Equipment::find($id);
         $eq->delete();
-        return redirect('admin/equipmentManagment')->with('success', 'Equipment Deleted');
+        return redirect('admin/equipmentManagment')->with('message', 'Equipment Deleted');
     }
     public function attent_status_approve($id)
     {
@@ -476,12 +476,23 @@ class AdminController extends Controller
             return redirect('/profile');
         }
     }
-    public function threshold(Request $request)
+    public function threshold()
     {
         $threshold['threshold'] = Threshold::all();
         return view('Admin/threshold', $threshold);
     }
-    public function add_deduction(Request $request)
+    public function DeductionReport()
+    {
+        $deduction = null;
+        return view('Admin.deduction_report', get_defined_vars());
+    }
+    public function DeductionResponse(Request $request)
+    {
+        $dept = $request->dep;
+        $deduction = Proceed::where('dept', $dept)->get();
+        return view('Admin.deduction_report', get_defined_vars());
+    }
+    public function add_deduction()
     {
         return view('admin/add_deduction');
     }

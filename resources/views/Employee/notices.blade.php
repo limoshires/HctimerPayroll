@@ -4,7 +4,7 @@
     use Carbon\Carbon;
     use App\Models\Attendence;
     use  App\Models\Notice;
-    $notice=Notice::get();
+    $notice=Notice::select('id','title','end_date')->get();
     $todayDate = Carbon::now()->format('d-m-Y');
 
     ?>
@@ -31,23 +31,16 @@
 <a class="btn btn-primary btn-sm  float-right  " href="{{ route('employee.notices.details',$data->id) }} "  style="font-size: 15px;">show</a>
 
                                                 </p>
-                                           
                                             </div>
                                         </div>
                                     </div>
-
-                                    
                                 </div>
                         </div>
                     </div>
-
-                  
                     @else
 
                     @endif
  @endforeach
-  
-                    
    </div>
        </div>
 

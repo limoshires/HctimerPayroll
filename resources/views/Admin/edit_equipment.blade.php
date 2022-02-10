@@ -16,6 +16,9 @@
                                         <form class="my-5" method="post" action="{{route('editEqType')}}">
                                             @csrf
                                             <div class="form-group">
+                                                    <input type="hidden" class="form-control" value ={{ $eq->id }} name="id" placeholder="ID" >
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="first-name-icon">Device Type</label>
 
                                                 <div class="position-relative has-icon-left">
@@ -29,7 +32,8 @@
                                             <select class="select2 form-control" name="user"  required>
                                                 <option value="" >select Employee</option>
                                                 @foreach ($user as $list)
-                                                    <option value="{{ $list->id }}"  @if( strcmp($list->first_name.' '.$list->last_name,$eq->employee)==0) selected  @endif >
+                                                    {{$name = $list->first_name." ".$list->last_name}}
+                                                    <option value="{{ $name }}"  @if( strcmp($list->first_name.' '.$list->last_name,$eq->employee)==0) selected  @endif >
                                                         {{ $list->first_name }} {{ $list->last_name }}</option>
                                                 @endforeach
                                             </select>

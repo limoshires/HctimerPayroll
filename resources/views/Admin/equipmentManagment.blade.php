@@ -5,16 +5,7 @@
 
             <div class="row">
                 <div class="col-12">
-                  @if ($message = Session::get('success'))
-                  <div class="alert alert-success ">
-                      <strong>{{ $message }}</strong>
-                  </div>
-                  @endif
-                  @if ($message = Session::get('error'))
-                  <div class="alert alert-danger ">
-                      <strong>{{ $message }}</strong>
-                  </div>
-                  @endif 
+              
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Equipment Managment</h4>

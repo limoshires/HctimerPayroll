@@ -11,23 +11,6 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                {{--  <li class=" nav-item"><a href="index.html"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
-                    <ul class="menu-content">
-                        <li class="active"><a href="dashboard-analytics.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Analytics</span></a>
-                        </li>
-                        <li><a href="dashboard-ecommerce.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="eCommerce">eCommerce</span></a>
-                        </li>
-                    </ul>
-                </li>  --}}
-                  {{--  <li class=" navigation-header"><span>Apps</span>  --}}
-                </li>
-                {{--  <li class={{ Request::is('dashboard')? 'active' : '' }} ><a href="{{ route('dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
-                </li>
-
-            <li class={{ Request::is('admin/profile')? 'active' : '' }} ><a href="{{ route('admin.profile') }}"><i class="feather icon-user"></i><span class="menu-title" data-i18n="profile">Admin profile</span></a>
-                </li>
-                  <li class={{ Request::is('company')? 'active' : '' }} ><a href="{{ route('company') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Company">Company</span></a>
-                </li>  --}}
 
 
                 <li class={{ Request::is('admin/dashboard')? 'active' : '' }}><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="services">Dashboard</span></a>  </li>
@@ -76,7 +59,17 @@
                         </li>
                         <li><a href="{{ url('admin/holidays') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">Holidays</span></a>
                         </li>
+                        <li><a href="{{ url('admin/maternity ') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">Maternity Leave</span></a>
+                        </li>
                        
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-layout"></i><span class="menu-title" data-i18n="Content">Report</span></a>
+                    <ul class="menu-content">
+                        <li><a href="{{url('admin/deduction-report')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">Deductions & Bonus</span></a>
+                        </li>
+                        {{-- <li><a href="{{url('admin/bonus-report')}}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">Bonus</span></a>
+                        </li> --}}
                     </ul>
                 </li>
                   <li class={{ Request::is('admin/threshold')? 'active' : '' }}>

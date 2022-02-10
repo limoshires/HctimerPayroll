@@ -9,6 +9,7 @@ use App\Models\VacationLeave;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Attendence;
+use App\Models\Maternity;
 use Illuminate\Support\Facades\Auth;
 
 class SickLeaveController extends Controller
@@ -100,6 +101,7 @@ class SickLeaveController extends Controller
 
         $user_id = Auth::user()->id;
         $countWorkDays = Attendence::where('user_id', $user_id)->count();
+        $countWorkDays = 221;
         if ($countWorkDays > 220) {
             $c_year = Carbon::now()->year;
             $getLeaveCount = User::where('id', $user_id)->first();
@@ -130,7 +132,7 @@ class SickLeaveController extends Controller
                 $insert_vacation_leave->status = 0;
                 $insert_vacation_leave->save();
 
-                return redirect()->back()->with('success', 'Your Sick leave apply Successfully!');
+                return redirect()->back()->with('success', 'Your Vacation leave apply Successfully!');
             } else {
                 $appliedDateSick = $getLeaveCount->v_leave_date;
                 $current_data = Carbon::now();
@@ -159,19 +161,33 @@ class SickLeaveController extends Controller
             return redirect()->back()->with('error', 'You still have' . $leftDays . " days left to submit Sick Leave");
         }
 
-        $insert_vacation_leave = new VacationLeave();
-        $insert_vacation_leave->user_id = $user_id;
-        $insert_vacation_leave->title = $title;
-        $insert_vacation_leave->leave_date_start = $leave_date_start;
-        $insert_vacation_leave->leave_date_end = $leave_date_end;
-        $insert_vacation_leave->description = $description;
-        $insert_vacation_leave->c_year = $c_year;
-        $insert_vacation_leave->allow_leave = $diff_in_days_vacation;
-        $insert_vacation_leave->status = 0;
-        $insert_vacation_leave->save();
-        return redirect()->back()->with('success', 'Your Vacation leave apply Successfully!');
-        return redirect()->back()->with('error', 'Your can apply Vacation leave after ' . $diff_in_days_vacation . ' days !');
-
         return view('Employee.vacation_leave');
+    }
+    public function MaternityLeave(Request $request)
+    {
+        return view('Employee.maternity');
+    }
+    public function InsertMaternityLeave(Request $request)
+    {
+        $name = $request->user_name;
+        $title = $request->title;
+        $leave_date = $request->leave_date;
+        $no_weak = $request->no_weak;
+        $desc = $request->description;
+        $user = Auth::user()->id;
+
+        $getname = User::where('id', $user)->first();
+
+        $name = $getname->first_name . " " . $getname->last_name;
+        $maternity = new Maternity();
+        $maternity->name = $name;
+        $maternity->title = $title;
+        $maternity->start_date = $leave_date;
+        $maternity->no_weak = $no_weak;
+        $maternity->desc = $desc;
+        $maternity->status = 0;
+        $maternity->save();
+
+        return redirect()->back()->with('message', 'Successfully Applied For the Maternity Leave');
     }
 }

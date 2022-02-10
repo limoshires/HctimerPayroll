@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Attendence;
 use App\Models\Holiday;
+use App\Models\Maternity;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Laravel\Ui\Presets\React;
+use Illuminate\Support\Str;
 
 class LeaveController extends Controller
 {
@@ -122,7 +123,85 @@ class LeaveController extends Controller
         return view('Admin.vacation_leave', $view_vacation_leave);
     }
 
+    public function MaternityLeave()
+    {
+        $maternity = Maternity::get();
+        $all_emp = User::where('user_role', 'user')->get();
+        return view('Admin.maternity', get_defined_vars());
+    }
 
+    public function InsertMaternity(Request $request)
+    {
+        $name = $request->user_name;
+        $title = $request->title;
+        $leave_date = $request->leave_date;
+        $no_weak = $request->no_weak;
+        $desc = $request->description;
+
+        $maternity = new Maternity();
+
+        $maternity->name = $name;
+        $maternity->title = $title;
+        $maternity->start_date = $leave_date;
+        $maternity->no_weak = $no_weak;
+        $maternity->desc = $desc;
+        $maternity->status = 0;
+        $maternity->save();
+
+        return redirect('admin/maternity')->with('message', 'Maternity Leave Added Successfully!');
+    }
+    public function ApproveMaternity($id)
+    {
+        $maternity = Maternity::find($id);
+        $maternity->status = 0;
+        $maternity->save();
+
+        $start_date = $maternity->start_date;
+        $no_weak = $maternity->no_weak;
+        $s_date = strtotime($start_date);
+
+        $no_days = $no_weak * 7;
+        // dd($start_date);
+        for ($i = 0; $i < 10; $i++) {
+            $s_date = strtotime($start_date);
+            $s_date = date('w', $s_date);
+            $weak_day = intval($s_date);
+            if ($weak_day <= 5) {
+                $atten = new Attendence();
+                $atten->total_hours = 28800;
+                $atten->work_and_overtime = 28800;
+                $atten->user_id = $id;
+                $atten->start_time = '08:00:00 AM';
+                $atten->end_time = '16:00:00 PM';
+                $atten->date = $start_date;
+                $atten->work_time = '08:00:00';
+                $atten->overtime = '00:00:00';
+                $atten->status = '1';
+                $atten->save();
+                $date = strtotime($start_date);
+                $date = strtotime("+1 day", $date);
+                $date = date('Y/m/d', $date);
+                $start_date = Str::replace('/', '-', $date);
+            } else if ($weak_day == 0) {
+                $date = strtotime($start_date);
+                $date = strtotime("+1 day", $date);
+                $date = date('Y/m/d', $date);
+                $start_date = Str::replace('/', '-', $date);
+            } else if ($weak_day == 6) {
+                $date = strtotime($start_date);
+                $date = strtotime("+2 day", $date);
+                $date = date('Y/m/d', $date);
+                $start_date = Str::replace('/', '-', $date);
+            }
+        }
+        return redirect('admin/maternity')->with('message', 'Maternity Leave Approve Successfully!');
+    }
+    public function DeleteMaternity($id)
+    {
+        $maternity = Maternity::find($id);
+        $maternity->delete();
+        return redirect('admin/maternity')->with('message', 'Maternity Deleted Successfully!');
+    }
     public function insert_vacation_leave(Request $request)
     {
         // get leave data start

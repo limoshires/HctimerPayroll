@@ -104,6 +104,10 @@ Route::prefix('admin')->middleware('admin')->namespace('App\\Http\\Controllers\\
     Route::get('/update_holiday_values/{id}', 'LeaveController@update_holiday_values');
     ///////vacation leave end
 
+    Route::get('/maternity', 'LeaveController@MaternityLeave');
+    Route::post('/insert_maternity_leave', 'LeaveController@InsertMaternity');
+    Route::get('/delete_maternity/{id}', 'LeaveController@DeleteMaternity');
+    Route::get('/approve_maternity/{id}', 'LeaveController@ApproveMaternity');
     Route::get('/threshold', [AdminController::class, 'threshold']);
     Route::post('/add_threshold', [AdminController::class, 'add_threshold']);
     Route::get('/edit_threshold/{id}', [AdminController::class, 'edit_threshold']);
@@ -117,6 +121,8 @@ Route::prefix('admin')->middleware('admin')->namespace('App\\Http\\Controllers\\
     Route::get('edit_equipment/{id}', 'AdminController@EditEquipment');
     Route::get('delete_equipment/{id}', 'AdminController@DeleteEquipment');
     Route::post('edit_equipment_type', 'AdminController@EditEquipmentType')->name('editEqType');
+    Route::get('deduction-report', 'AdminController@DeductionReport');
+    Route::post('deduction_response', [AdminController::class, 'DeductionResponse']);
 });
 
 
@@ -166,6 +172,7 @@ Route::get('employee/sick-leave', [SickLeaveController::class, 'sick_leave']);
 Route::get('employee/vacation-leave', [SickLeaveController::class, 'vacation_leave']);
 Route::post('employee/insert_sick_leave', [SickLeaveController::class, 'insert_sick_leave']);
 Route::post('employee/insert_vacation_leave', [SickLeaveController::class, 'insert_vacation_leave']);
-
+Route::get('employee/maternity-leave', [SickLeaveController::class, 'MaternityLeave']);
+Route::post('employee/insert_maternity_leave', [SickLeaveController::class, 'InsertMaternityLeave']);
 
 Route::get('Testmail', 'App\Http\Controllers\TestController@Testmail');

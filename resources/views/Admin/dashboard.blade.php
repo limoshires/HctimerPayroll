@@ -10,8 +10,8 @@
 
                     <div class="card-header d-flex align-items-start pb-0">
                         <div>
-                            <h2 class="text-bold-700 mb-0 text-primary">78</h2>
-                            <p class="text-primary">Total User</p>
+                            <h2 class="text-bold-700 mb-0 text-primary">{{$emp}}</h2>
+                            <p class="text-primary">Total Employee</p>
                         </div>
                         <div class="avatar bg-rgba-primary p-50 m-0">
                             <div class="avatar-content">
@@ -28,7 +28,7 @@
                     <div class="card-header d-flex align-items-start pb-0">
                         <div>
                             <h2 class="text-bold-700 mb-0 text-success">80</h2>
-                            <p class="text-success">Total Company User</p>
+                            <p class="text-success">Present Today</p>
                         </div>
                         <div class="avatar bg-rgba-success p-50 m-0">
                             <div class="avatar-content">
@@ -45,7 +45,7 @@
                     <div class="card-header d-flex align-items-start pb-0">
                         <div>
                             <h2 class="text-bold-700 mb-0 text-primary">90</h2>
-                            <p class="text-primary">Total Driver User</p>
+                            <p class="text-primary">On Leave</p>
                         </div>
                         <div class="avatar bg-rgba-primary p-50 m-0">
                             <div class="avatar-content">

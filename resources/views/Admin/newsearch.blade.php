@@ -41,7 +41,7 @@
 <label for="start_date">Duration</label>
 <div class="position-relative has-icon-left">
     <input type="date" id="date-input" class="form-control"
-        name="start_date" placeholder="start date"  value="{{ old('start_date') }}" required>
+        name="start_date" placeholder="start date"  value="{{ old('$start_date') }}" required>
 
     <input type="date" id="date-input" class="form-control"
         name="end_date" placeholder="end date"  value="{{ $end_date }}">
@@ -52,30 +52,6 @@
 </div>
 </div>
 
-{{--  <div class="form-group">
-<label for="end_date">Duration</label>
-<div class="position-relative has-icon-left">
-    <input type="date" id="date-input" class="form-control"
-        name="end_date" placeholder="start date" required>
-    <div class="form-control-position">
-        <i class="feather icon-calendar "></i>
-    </div>
-</div>
-</div>  --}}
-{{-- </div>
-<div class="col-md-6">
-<div class="form-group">
-<label for="password-icon">End Date</label>
-<div class="position-relative has-icon-left">
-    <input type="date" id="password-icon" class="form-control"
-        name="end_date" placeholder="End date">
-    <div class="form-control-position">
-        <i class="feather icon-calendar "></i>
-    </div>
-</div>
-</div>
-</div>
-</div>--}}
 <div class="form-group">
 <label for="first-name-icon">Dept</label>
 
@@ -544,18 +520,20 @@ $('.INC_TAX').text(income);
 
 
  $('.proceed').click(function() {
-                var a=  $('.first_name').text();
-                      var id=  $('.user_id').val();
+                var emp_name=  $('.first_name').text();
+                var id=  $('.user_id').val();
 
-           var nis=     $('.NIS_ANS').text();
+                var bonus= $('.bonuspay').text();
+                var nis= $('.NIS_ANS').text();
+                var dept = $('.department').text();
 
- var nht=$('.NIS_NHT').text();
-var edtax=$('.NIS_EDT').text();
+                var nht=$('.NIS_NHT').text();
+                var edtax=$('.NIS_EDT').text();
                 var s_d = $('.start_date').val();
                 var e_d = $('.end_date').val();
-var netpay=$('.netpay').text();
+                var netpay=$('.netpay').text();
 
-var income_save=$('.user_incometax').text();
+                var income_save=$('.user_incometax').text();
 
 //alert(netpay);
  $.ajax({
@@ -563,7 +541,7 @@ var income_save=$('.user_incometax').text();
               type:"get",
               data:{
                   "user_id":id,"start_date":s_d,"end_date":e_d,"nis":nis,
-                  "nht":nht, 'edtax':edtax,'netpay':netpay,'income_save':income_save
+                  "nht":nht, 'edtax':edtax,'netpay':netpay,'income_save':income_save,'bonus':bonus,'dept':dept,'emp_name':emp_name
               },
               success: function (resutl) {
                   if(resutl==0) {

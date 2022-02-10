@@ -342,7 +342,7 @@ class PayrollController extends Controller
                 //$regular_hours=$atten_get->regular_hours;
                 $regular_hours = 80;
                 $Nis = $atten_get->nis;
-                $first_name = $atten_get->first_name;
+                $first_name = $atten_get->first_name . ' ' . $atten_get->last_name;
                 $dep_id = $atten_get->department;
                 $ORP = $atten_get->ot_rate;
                 $trn = $atten_get->trn;
@@ -441,7 +441,11 @@ class PayrollController extends Controller
                 $nht = $request->nht;
                 $edtax = $request->edtax;
                 $netpay = $request->netpay;
+                $uBonus = $request->bonus;
+                $userBonus = Str::remove('$', $uBonus);
                 $incometax = $request->income_save;
+                $deptartment_ = $request->dept;
+                $emp_name = $request->emp_name;
                 $count = Proceed::where('start_date', $start_date)->where('end_date', $end_date)->where('user_id', $user_id)->count();
 
                 if ($count > 0) {
@@ -462,6 +466,9 @@ class PayrollController extends Controller
                         $proceed->status = 1;
                         $proceed->income = $incometax;
                         $proceed->year = $c_year;
+                        $proceed->bonus = $userBonus;
+                        $proceed->dept = $deptartment_;
+                        $proceed->emp_name = $emp_name;
                         $proceed->save();
                         return 0;
                 }
